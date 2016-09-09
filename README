@@ -1,0 +1,60 @@
+scs - SEEK Coding Solution
+
+Hi!
+
+About
+
+This is a implementation of proposed ad checkout system.
+The solution I came with is a very simple C program with a very simple GNU Makefile to build it.
+
+Building
+
+To build it all you have to do is type `make` on a *nix system with gcc and make installed.
+Once built, you should have a `scs` executable on your workdir.
+
+Running
+This program expects input from STDIN. On `test` directory there are some sample input from test example cenarios.
+You can run on of those tests with this command `./scs < test/test1`
+
+The program should output to STDOUT the total amount for your input data.
+
+Project Structure
+
+. src include conf README Makefile test
+
+   ./src/      contains all source files
+   ./include/  contains all header files
+   ./conf/     contains configuration data
+   ./test/     contains test data
+
+Solution
+
+Why C? Well.. I was running out of time for completing the assignment and I had problem with my internet connection.
+The original plan was to create a microservice with .net core and deploy it to some web provider within docker but
+that was impossible to do without a good internet connection. That requires a lot of bandwidth. That was the main reason I couldn't go with the original plan.
+
+I like programming in C and I think most programmer are familiar with it, so I thought it would be a good choice to present you
+with a coding solution in C.
+
+Of course it would be great if I had a real database to connect my application to, but as I said I was running out of time so
+please excuse me reguarding that too. The products (ads) are hard coded on the application source code.
+
+At first glance reading the assignment I found that I needed some sort of `rule engine`. I did some research on it but not a deep one.
+I learnt that it is the tool of choice when you have a requirement of such dynamic ever changing business rule.
+
+I tried my best to implement a decent but simple C program that could have it's behavour easily changed just modifing the configuration file.
+That could have been on a database too by the way. I didn't take any precaution on some C best practices specifics like freeing reserved memory and things like that.
+As a matter of fact, I didn't implement code for adding more than 10 items to checkout, although I could do it with minimal efford.
+
+The objects of my programs model are:
+
+   - main program : responsable for the interface for testing the proposed functionality
+   - pricing rules: responsable for holding the pluggable pieces of logic of pricing rules
+   - client: only holds a name to be matched against
+   - product: holds a id, a name and a price
+   - item: holds a product and the product's quantity
+   - checkout: holds many items, a client and a pricing rule object
+   - rules: these are boolean functions which proporse are to match objects against some property's value
+   - actions: these are functions which proporse are to modify a checkout's item when some rule is trigged
+
+
