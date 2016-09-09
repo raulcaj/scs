@@ -13,7 +13,7 @@ To build it all you have to do is type `make` on a *nix system with gcc and make
 Once built, you should have a `scs` executable on your workdir.
 
 Running
-This program expects input from STDIN. On `test` directory there are some sample input from test example cenarios.
+This program expects input from STDIN. On `test` directory there are some sample input from test example scenarios.
 You can run on of those tests with this command `./scs < test/test1`
 
 The program should output to STDOUT the total amount for your input data.
@@ -37,24 +37,22 @@ I like programming in C and I think most programmer are familiar with it, so I t
 with a coding solution in C.
 
 Of course it would be great if I had a real database to connect my application to, but as I said I was running out of time so
-please excuse me reguarding that too. The products (ads) are hard coded on the application source code.
+please excuse me regarding that too. The products (ads) are hard coded on the application source code.
 
 At first glance reading the assignment I found that I needed some sort of `rule engine`. I did some research on it but not a deep one.
-I learnt that it is the tool of choice when you have a requirement of such dynamic ever changing business rule.
+I learn that it is the tool of choice when you have a requirement of such dynamic ever changing business rule.
 
-I tried my best to implement a decent but simple C program that could have it's behavour easily changed just modifing the configuration file.
+I tried my best to implement a decent but simple C program that could have it's behaviour easily changed just modifying the configuration file.
 That could have been on a database too by the way. I didn't take any precaution on some C best practices specifics like freeing reserved memory and things like that.
-As a matter of fact, I didn't implement code for adding more than 10 items to checkout, although I could do it with minimal efford.
+As a matter of fact, I didn't implement code for adding more than 10 items to checkout, although I could do it with minimal effort.
 
 The objects of my programs model are:
 
-   - main program : responsable for the interface for testing the proposed functionality
-   - pricing rules: responsable for holding the pluggable pieces of logic of pricing rules
+   - main program : responsible for the interface for testing the proposed functionality
+   - pricing rules: responsible for holding the pluggable pieces of logic of pricing rules
    - client: only holds a name to be matched against
    - product: holds a id, a name and a price
    - item: holds a product and the product's quantity
    - checkout: holds many items, a client and a pricing rule object
-   - rules: these are boolean functions which proporse are to match objects against some property's value
-   - actions: these are functions which proporse are to modify a checkout's item when some rule is trigged
-
-
+   - rules: these are boolean functions which purpose are to match objects against some property's value
+   - actions: these are functions which purpose are to modify a checkout's item when some rule is trigged
