@@ -8,7 +8,7 @@ struct s_product {
         int price;
 };
 
-product_t products[3];
+static product_t products[3];
 void product_init() {
         product_t p_classic;
         p_classic.id  = classic;

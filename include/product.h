@@ -9,7 +9,7 @@ typedef struct s_product product_t, *product_p;
 
 product_p product_cpy(product_p product);
 product_p product_get_by_id(int id);
-void product_init();
+void product_init(void);
 
 void product_del(product_p product);
 int product_get_id(product_p product);
