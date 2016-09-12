@@ -1,57 +1,82 @@
 #include "../include/checkout.h"
+#include "../include/list.h"
+#include "../include/pricingrules.h"
+
 #include <stdlib.h>
 
 struct s_checkout {
-        pricingrules_p pricingrules;
+        list_p pricingrules;
         client_p client;
-        item_p *items;
-        int items_count;
-        int items_size;
+        list_p items;
 };
 
-checkout_p checkout_new(pricingrules_p pricingrules, client_p client) {
+checkout_p checkout_new(list_p pricingrules, client_p client) {
         checkout_p co = (checkout_p)malloc(sizeof(checkout_t));
-        co->items = (item_p*)calloc(10, sizeof(item_p));
         co->pricingrules = pricingrules;
         co->client = client;
-        co->items_count = 0;
-        co->items_size = 10;
+        co->items = list_new();
         return co;
 }
 
+
+void list_pricingrules_del(void* ptr) {
+        pricingrules_p pr = ptr;
+        pricingrules_del(pr);
+}
+
+void list_item_del(void* ptr) {
+        item_p item = ptr;
+        item_del(item);
+}
+
+void checkout_del(checkout_p co) {
+        client_del(co->client);
+        list_del(co->pricingrules, list_pricingrules_del);
+        list_del(co->items, list_item_del);
+        free(co);
+}
+
+
+void checkout_sumitems(void *sum_param, void* item_param) {
+        int* sum = sum_param;
+        item_p item = item_param;
+        *sum += item_get_quantity(item) * item_get_price(item);
+}
+
 int checkout_total(checkout_p co) {
-        int sum = 0, i = 0;
+        int sum = 0;
         pricingrules_execute(co);
-        for(i = 0; i < co->items_count; ++i) {
-                sum += item_get_quantity(co->items[i]) * item_get_price(co->items[i]);
-        }
+        list_foreach(co->items, checkout_sumitems, &sum);
         return sum;
 }
 
-void checkout_add(checkout_p co, item_p item) {
-        int i = 0;
-        for(i = 0; i < co->items_count; ++i) {
-                if(item_eq(co->items[i], item)) {
-                        item_set_quantity(co->items[i], item_get_quantity(co->items[i])+item_get_quantity(item));
-                        return;
-                }
+
+void checkout_incquantity(void *newitem_param, void* item_param) {
+        item_p newitem = newitem_param;
+        item_p item = item_param;
+        if(item_eq(item, newitem)) {
+                item_set_quantity(item, item_get_quantity(item)+item_get_quantity(newitem));
+                item_set_quantity(newitem, 0);
         }
-        co->items[co->items_count] = item;
-        co->items_count++;
+}
+
+void checkout_add(checkout_p co, item_p newitem) {
+        list_foreach(co->items, checkout_incquantity, newitem);
+        if(item_get_quantity(newitem) > 0) {
+                list_add(co->items, newitem);
+        } else {
+                item_del(newitem);
+        }
 }
 
 char *checkout_get_client_name(checkout_p co) {
         return client_get_name(co->client);
 }
 
-item_p checkout_get_item(checkout_p co, int index) {
-        return co->items[index];
-}
-
-int checkout_get_items_count(checkout_p co) {
-        return co->items_count;
-}
-
-pricingrules_p checkout_get_pricingrules(checkout_p co) {
+list_p checkout_get_pricingrules(checkout_p co) {
         return co->pricingrules;
+}
+
+list_p checkout_get_items(checkout_p co) {
+        return co->items;
 }

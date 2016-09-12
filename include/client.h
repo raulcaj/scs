@@ -5,4 +5,5 @@ typedef struct s_client client_t, *client_p;
 
 char* client_get_name(client_p client);
 client_p client_new(char *name);
+void client_del(client_p client);
 #endif

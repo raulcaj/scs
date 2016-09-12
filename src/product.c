@@ -41,6 +41,10 @@ product_p product_cpy(product_p product) {
         return cpy;
 }
 
+void product_del(product_p product) {
+        free(product);
+}
+
 
 int product_get_id(product_p product) {
         return product->id;

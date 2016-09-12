@@ -14,3 +14,7 @@ client_p client_new(char *name) {
         client->name = name;
         return client;
 }
+
+void client_del(client_p client) {
+        free(client);
+}

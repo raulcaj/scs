@@ -3,19 +3,15 @@
 
 #include "item.h"
 #include "client.h"
+#include "list.h"
 
 typedef struct s_checkout checkout_t, *checkout_p;
 
-typedef int (*rulematcher_p)(checkout_p, item_p, void*);
-typedef void(*rulesaction_p)(checkout_p, item_p, void*);
-
+checkout_p checkout_new(list_p prs, client_p client);
 int checkout_total(checkout_p checkout);
 void checkout_add(checkout_p checkout, item_p item);
 char *checkout_get_client_name(checkout_p co);
-int checkout_get_items_count(checkout_p co);
-item_p checkout_get_item(checkout_p co, int index);
-
-#include "pricingrules.h"
-pricingrules_p checkout_get_pricingrules(checkout_p co);
-checkout_p checkout_new(pricingrules_p pricingrules, client_p client);
+void checkout_del(checkout_p co);
+list_p checkout_get_items(checkout_p co);
+list_p checkout_get_pricingrules(checkout_p co);
 #endif

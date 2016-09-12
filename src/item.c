@@ -13,6 +13,11 @@ item_p item_new(product_p product, int quantity) {
         return item;
 }
 
+void item_del(item_p item) {
+        product_del(item->product);
+        free(item);
+}
+
 int item_eq(item_p item1, item_p item2) {
         return product_get_id(item1->product) == product_get_id(item2->product) &&
                 product_get_price(item1->product) == product_get_price(item2->product);

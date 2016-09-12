@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "../include/checkout.h"
+#include "../include/pricingrules.h"
 #include "../include/product.h"
 
 void process_order() {
@@ -10,8 +11,8 @@ void process_order() {
         client_p client = NULL;
         fscanf(stdin, "%s", client_name);
         client = client_new(client_name);
-        pricingrules_p pr = pricingrules_from_file("./conf/pricingrules.data");
-        checkout_p co = checkout_new(pr, client);
+        list_p prs = pricingrules_from_file("./conf/pricingrules.data");
+        checkout_p co = checkout_new(prs, client);
         item_p item = NULL;
         fscanf(stdin, "%d", &quantity);
         while(quantity-- > 0) {
@@ -21,6 +22,7 @@ void process_order() {
         }
         total = checkout_total(co);
         fprintf(stderr, "total: %d.%d\n", total/100, total%100);
+        checkout_del(co);
 }
 
 
