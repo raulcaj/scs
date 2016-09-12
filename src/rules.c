@@ -8,24 +8,6 @@ struct s_match {
         void* data;
 };
 
-int match_client_name(checkout_p co, item_p item, void* param) {
-        char* client_name = (char*)param;
-        if(strcmp(client_name, checkout_get_client_name(co)) == 0) {
-                return 1;
-        }
-        return 0;
-}
-
-int match_product_id(checkout_p co, item_p item, void* param) {
-        int product_id = *((int*)param);
-        return item_get_product_id(item) == product_id;
-}
-
-int match_product_quantity(checkout_p co, item_p item, void* param) {
-        int product_quantity = *((int*)param);
-        return item_get_quantity(item) >= product_quantity;
-}
-
 match_p match_new(char *key, char *val) {
         match_p match = (match_p)malloc(sizeof(match_t));
         if(strcmp(key,"client") == 0) {
@@ -52,4 +34,22 @@ void match_del(match_p match) {
 
 int match_execute(match_p match, checkout_p co, item_p item) {
         return match->func(co, item, match->data);
+}
+
+
+/* generic matching function */
+
+int match_client_name(checkout_p co, item_p item, void* param) {
+        char* client_name = (char*)param;
+        return strcmp(client_name, checkout_get_client_name(co)) == 0;
+}
+
+int match_product_id(checkout_p co, item_p item, void* param) {
+        int product_id = *((int*)param);
+        return item_get_product_id(item) == product_id;
+}
+
+int match_product_quantity(checkout_p co, item_p item, void* param) {
+        int product_quantity = *((int*)param);
+        return item_get_quantity(item) >= product_quantity;
 }
