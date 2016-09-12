@@ -40,11 +40,10 @@ Of course it would be great if I had a real database to connect my application t
 please excuse me regarding that too. The products (ads) are hard coded on the application source code.
 
 At first glance reading the assignment I found that I needed some sort of `rule engine`. I did some research on it but not a deep one.
-I learn that it is the tool of choice when you have a requirement of such dynamic ever changing business rule.
+I learnt that it is the tool of choice when you have a requirement of such dynamic ever changing business rule.
 
 I tried my best to implement a decent but simple C program that could have it's behaviour easily changed just modifying the configuration file.
-That could have been on a database too by the way. I didn't take any precaution on some C best practices specifics like freeing reserved memory and things like that.
-As a matter of fact, I didn't implement code for adding more than 10 items to checkout, although I could do it with minimal effort.
+That could have been on a database too by the way.
 
 The objects of my programs model are:
 
