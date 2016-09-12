@@ -53,5 +53,6 @@ The objects of my programs model are:
    - product: holds a id, a name and a price
    - item: holds a product and the product's quantity
    - checkout: holds many items, a client and a pricing rule object
-   - rules: these are boolean functions which purpose are to match objects against some property's value
+   - matchs: these are boolean functions which purpose are to match objects against some property's value
    - actions: these are functions which purpose are to modify a checkout's item when some rule is trigged
+   - list: a simple linked list utility library
