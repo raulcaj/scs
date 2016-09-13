@@ -2,16 +2,19 @@
 #include "../include/checkout.h"
 #include "../include/pricingrules.h"
 #include "../include/product.h"
+#include "../include/client.h"
+
+#define CONF_FILE "./conf/pricingrules.data"
 
 void process_order() {
         int total = 0;
         int quantity = 0;
         int product_id = 0;
-        char client_name[128] = "";
+        char client_name[CLIENT_MAX_NAME] = "";
         client_p client = NULL;
         fscanf(stdin, "%s", client_name);
         client = client_new(client_name);
-        list_p prs = pricingrules_from_file("./conf/pricingrules.data");
+        list_p prs = pricingrules_from_file(CONF_FILE);
         checkout_p co = checkout_new(prs, client);
         item_p item = NULL;
         fscanf(stdin, "%d", &quantity);

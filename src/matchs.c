@@ -2,28 +2,41 @@
 #include <stdlib.h>
 #include "../include/matchs.h"
 #include "../include/checkout.h"
+#include "../include/parsers.h"
+
+#define MATCH_FUNC_COUNT 3
 
 struct s_match {
         rulematcher_p func;
         void* data;
 };
 
-match_p match_new(char *key, char *val) {
-        match_p match = (match_p)malloc(sizeof(match_t));
-        if(strcmp(key,"client") == 0) {
-                match->func = match_client_name;
-                match->data = malloc(sizeof(char)*(strlen(val)+1));
-                strcpy((char*)match->data, val);
-        } else if(strcmp(key, "product") == 0) {
-                match->func = match_product_id;
-                match->data = malloc(sizeof(int));
-                *((int*)match->data) = atoi(val);
-        } else if(strcmp(key, "quantity") == 0) {
-                match->func = match_product_quantity;
-                match->data = malloc(sizeof(int));
-                *((int*)match->data) = atoi(val);
-        }
+static const char* match_keywords[MATCH_FUNC_COUNT] = {
+        "client",
+        "product",
+        "quantity"
+};
+static const rulematcher_p match_funcs[MATCH_FUNC_COUNT]  = {
+            match_client_name,
+            match_product_id,
+            match_product_quantity
+};
+static const parser_func_p match_parsers[MATCH_FUNC_COUNT] = {
+        parser_copychar,
+        parser_parseint,
+        parser_parseint
+};
 
+match_p match_new(const char *key, const char *val) {
+        int i = 0;
+        match_p match = (match_p)malloc(sizeof(match_t));
+        for(i = 0; i < MATCH_FUNC_COUNT; ++i) {
+                if(strcmp(key, match_keywords[i]) == 0) {
+                        match->func = match_funcs[i];
+                        match->data = match_parsers[i](val);
+                        break;
+                }
+        }
         return match;
 }
 

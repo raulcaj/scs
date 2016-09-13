@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX_NAME 128
 
 struct s_client {
         char* name;
@@ -14,8 +13,8 @@ char* client_get_name(client_p client) {
 
 client_p client_new(const char *name) {
         client_p client = (client_p)malloc(sizeof(client_t));
-        client->name = (char*)malloc(sizeof(char)*MAX_NAME);
-        strncpy(client->name, name, MAX_NAME);
+        client->name = (char*)malloc(sizeof(char)*CLIENT_MAX_NAME);
+        strncpy(client->name, name, CLIENT_MAX_NAME);
         return client;
 }
 
