@@ -17,13 +17,17 @@ product_p product_get_by_id(const char* id) {
         return product;
 }
 
-product_p product_cpy(product_p product) {
-        product_p cpy = (product_p)malloc(sizeof(product_t));
-        memcpy(cpy, product, sizeof(product_t));
-        return cpy;
+product_p product_copy(product_p product) {
+        product_p copy = (product_p)malloc(sizeof(product_t));
+        copy->id = parser_copychar(product->id);
+        copy->name = parser_copychar(product->name);
+        copy->price = product->price;
+        return copy;
 }
 
 void product_del(product_p product) {
+        free(product->id);
+        free(product->name);
         free(product);
 }
 

@@ -9,7 +9,7 @@ struct s_item {
 
 item_p item_new(product_p product, int quantity) {
         item_p item = (item_p)malloc(sizeof(item_t));
-        item->product = product_cpy(product);
+        item->product = product;
         item->quantity = quantity;
         return item;
 }

@@ -7,7 +7,7 @@
 
 typedef struct s_product product_t, *product_p;
 
-product_p product_cpy(product_p product);
+product_p product_copy(product_p product);
 product_p product_get_by_id(const char* id);
 
 void product_del(product_p product);
