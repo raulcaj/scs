@@ -63,29 +63,29 @@ void pricingrules_del(pricingrules_p pr) {
 }
 
 void try_match_and_execute(void* co_param, void* item_param) {
-//        checkout_p co = co_param;
-//        item_p item = item_param;
-//        list_p prs = checkout_get_pricingrules(co);
-//        void match_all(void* result_param, void* match_param) {
-//                int* result = result_param;
-//                match_p match = match_param;
-//                if(*result) {
-//                        *result = match_execute(match, co, item);
-//                }
-//        }
-//        void do_actions(void* data, void* action_param) {
-//                action_p action = action_param;
-//                action_execute(action, co, item);
-//        }
-//        void each_rule(void* data, void* pr_param) {
-//                int result = 1;
-//                pricingrules_p pr = pr_param;
-//                list_foreach(pr->matchs, match_all, &result);
-//                if(result) {
-//                        list_foreach(pr->actions, do_actions, NULL);
-//                }
-//        }
-//        list_foreach(prs, each_rule, NULL);
+        checkout_p co = co_param;
+        item_p item = item_param;
+        list_p prs = checkout_get_pricingrules(co);
+        void match_all(void* result_param, void* match_param) {
+                int* result = result_param;
+                match_p match = match_param;
+                if(*result) {
+                        *result = match_execute(match, co, item);
+                }
+        }
+        void do_actions(void* data, void* action_param) {
+                action_p action = action_param;
+                action_execute(action, co, item);
+        }
+        void each_rule(void* data, void* pr_param) {
+                int result = 1;
+                pricingrules_p pr = pr_param;
+                list_foreach(pr->matchs, match_all, &result);
+                if(result) {
+                        list_foreach(pr->actions, do_actions, NULL);
+                }
+        }
+        list_foreach(prs, each_rule, NULL);
 }
 
 
