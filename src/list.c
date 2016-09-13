@@ -9,12 +9,14 @@ typedef struct node_s {
 struct list_s {
         node_p head;
         node_p tail;
+        int count;
 };
 
 
 list_p list_new() {
         list_p list = (list_p)malloc(sizeof(list_t));
         list->head = list->tail = NULL;
+        list->count = 0;
         return list;
 }
 
@@ -30,6 +32,7 @@ void list_add(list_p list, void* data) {
                 list->tail->next = node;
         }
         list->tail = node;
+        list->count++;
 }
 
 void list_del(list_p list, list_free_p func) {
@@ -49,4 +52,8 @@ void list_foreach(list_p list, list_each_p func, void* data) {
                 func(data, node->data);
                 node = node->next;
         }
+}
+
+int list_count(list_p list) {
+        return list->count;
 }

@@ -3,6 +3,7 @@
 #include "../include/actions.h"
 #include "../include/list.h"
 #include "../include/pricingrules.h"
+#include "../include/db.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -18,6 +19,14 @@ pricingrules_p pricingrules_new() {
         pr->matchs = list_new();
         pr->actions = list_new();
         return pr;
+}
+
+list_p pricingrules_get_matchs(pricingrules_p pr) {
+        return pr->matchs;
+}
+
+list_p pricingrules_get_actions(pricingrules_p pr) {
+        return pr->actions;
 }
 
 list_p pricingrules_from_file(char *filename) {
@@ -44,6 +53,12 @@ list_p pricingrules_from_file(char *filename) {
         }
         fclose(db);
         return prs;
+}
+
+list_p pricingrules_from_db() {
+        list_p list = NULL;
+        db_retrieve_pricingrules(&list);
+        return list;
 }
 
 void list_match_del(void* ptr) {

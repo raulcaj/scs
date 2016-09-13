@@ -1,5 +1,6 @@
 #include "../include/item.h"
 #include <stdlib.h>
+#include <string.h>
 
 struct s_item {
         product_p product;
@@ -19,7 +20,7 @@ void item_del(item_p item) {
 }
 
 int item_eq(item_p item1, item_p item2) {
-        return product_get_id(item1->product) == product_get_id(item2->product) &&
+        return strcmp(product_get_id(item1->product), product_get_id(item2->product)) == 0 &&
                 product_get_price(item1->product) == product_get_price(item2->product);
 }
 
@@ -39,7 +40,7 @@ void item_set_quantity(item_p item, int quantity) {
         item->quantity = quantity;
 }
 
-int item_get_product_id(item_p item) {
+char* item_get_product_id(item_p item) {
         return product_get_id(item->product);
 }
 

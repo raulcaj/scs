@@ -1,38 +1,20 @@
 #include "../include/product.h"
+#include "../include/parsers.h"
+#include "../include/db.h"
 #include <string.h>
 #include <stdlib.h>
 
 struct s_product {
-        int id;
+        char *id;
         char *name;
         int price;
 };
 
-static product_t products[3];
-void product_init() {
-        product_t p_classic;
-        p_classic.id  = classic;
-        p_classic.name = "Classic Ad";
-        p_classic.price = 26999;
-
-
-        product_t p_standout;
-        p_standout.id  = standout;
-        p_standout.name = "Standout Ad";
-        p_standout.price = 32299;
-
-        product_t p_premium;
-        p_premium.id  = premium;
-        p_premium.name = "Premium Ad";
-        p_premium.price = 39499;
-
-        products[classic]  = p_classic;
-        products[standout] = p_standout;
-        products[premium]  = p_premium;
-}
-
-product_p product_get_by_id(int id) {
-        return &products[id];
+product_p product_get_by_id(const char* id) {
+        product_p product = (product_p)malloc(sizeof(product_t));
+        product->id = parser_copychar(id);
+        db_retrieve_product_by_id(product->id, &product->name, &product->price);
+        return product;
 }
 
 product_p product_cpy(product_p product) {
@@ -45,8 +27,7 @@ void product_del(product_p product) {
         free(product);
 }
 
-
-int product_get_id(product_p product) {
+char* product_get_id(product_p product) {
         return product->id;
 }
 

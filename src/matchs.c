@@ -23,7 +23,7 @@ static const rulematcher_p match_funcs[MATCH_FUNC_COUNT]  = {
 };
 static const parser_func_p match_parsers[MATCH_FUNC_COUNT] = {
         parser_copychar,
-        parser_parseint,
+        parser_copychar,
         parser_parseint
 };
 
@@ -58,8 +58,8 @@ int match_client_name(checkout_p co, item_p item, void* param) {
 }
 
 int match_product_id(checkout_p co, item_p item, void* param) {
-        int product_id = *((int*)param);
-        return item_get_product_id(item) == product_id;
+        char* product_id = (char*)param;
+        return strcmp(item_get_product_id(item), product_id) == 0;
 }
 
 int match_product_quantity(checkout_p co, item_p item, void* param) {
