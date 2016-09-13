@@ -56,3 +56,4 @@ The objects of my programs model are:
    - matchs: these are boolean functions which purpose are to match objects against some property's value
    - actions: these are functions which purpose are to modify a checkout's item when some rule is trigged
    - list: a simple linked list utility library
+   - parser: helper functions to parse conf file

@@ -36,7 +36,6 @@ void checkout_del(checkout_p co) {
         free(co);
 }
 
-
 void checkout_sumitems(void *sum_param, void* item_param) {
         int* sum = sum_param;
         item_p item = item_param;
@@ -49,7 +48,6 @@ int checkout_total(checkout_p co) {
         list_foreach(co->items, checkout_sumitems, &sum);
         return sum;
 }
-
 
 void checkout_incquantity(void *newitem_param, void* item_param) {
         item_p newitem = newitem_param;
