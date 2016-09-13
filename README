@@ -36,14 +36,19 @@ that was impossible to do without a good internet connection. That requires a lo
 I like programming in C and I think most programmer are familiar with it, so I thought it would be a good choice to present you
 with a coding solution in C.
 
+/*
 Of course it would be great if I had a real database to connect my application to, but as I said I was running out of time so
-please excuse me regarding that too. The products (ads) are hard coded on the application source code.
+please excuse me regarding that too. The products (ads) are hard coded on the application source code.a
+*/
+
+I got some time and I implemented a real database for the application using sqlite3.
+products, clients and rules are stored on the database.
 
 At first glance reading the assignment I found that I needed some sort of `rule engine`. I did some research on it but not a deep one.
 I learnt that it is the tool of choice when you have a requirement of such dynamic ever changing business rule.
 
-I tried my best to implement a decent but simple C program that could have it's behaviour easily changed just modifying the configuration file.
-That could have been on a database too by the way.
+I tried my best to implement a decent but simple C program that could have it's behaviour easily changed just modifying the (configuration file/database).
+
 
 The objects of my programs model are:
 
@@ -57,3 +62,4 @@ The objects of my programs model are:
    - actions: these are functions which purpose are to modify a checkout's item when some rule is trigged
    - list: a simple linked list utility library
    - parser: helper functions to parse conf file
+   - db: helper functions which read a sqlite3 database
